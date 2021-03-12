@@ -20,6 +20,10 @@ public class GridSpawnerEditor : Editor
         if (GUILayout.Button("Generate")) {
             gridSpawner.GenerateGrid();
         }
+        
+        if (GUILayout.Button("Erase Items")) {
+            gridSpawner.EraseItems();
+        }
 
     }
 }
