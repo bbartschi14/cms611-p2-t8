@@ -14,8 +14,8 @@ public class Tilemap : MonoBehaviour
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
-        CreateTexture();
-        GetComponent<MeshRenderer>().sharedMaterial.mainTexture = texture;
+        //CreateTexture();
+        //GetComponent<MeshRenderer>().sharedMaterial.mainTexture = texture;
         
         this.grid = grid;
         UpdateTileMapVisual();
@@ -35,12 +35,13 @@ public class Tilemap : MonoBehaviour
             for (int y = 0; y < grid.GetHeight(); y++) {
                 int index = x * grid.GetHeight() + y;
                 Vector3 quadSize = new Vector3(1, 1) * grid.GetCellSize();
-                Vector2 gridValueUV = new Vector2(0f, 0f);
+                Vector2 gridValueUV1 = new Vector2(0f, 0f);
+                Vector2 gridValueUV2 = new Vector2(1f, 1f);
                 MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, 
                                           grid.GetWorldPosition(x, y) + quadSize * .5f, 
                                           0f, 
                                           quadSize, 
-                                          gridValueUV, gridValueUV);
+                                          gridValueUV1, gridValueUV2);
             }
         }
 
