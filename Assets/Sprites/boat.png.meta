@@ -4,19 +4,34 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -4032481707582436298
-    second: boat_0
+    second: boat_right_0
   - first:
       213: -936671485401084529
-    second: boat_1
+    second: boat_right_1
   - first:
       213: 7540364722606942347
-    second: boat_2
+    second: boat_left_0
   - first:
       213: 7877383918422554417
-    second: boat_3
+    second: boat_left_1
   - first:
       213: -1155405426687783956
-    second: boat_4
+    second: boat_down_0
+  - first:
+      213: 4432035888278999749
+    second: boat_down_1
+  - first:
+      213: -3431226241411013181
+    second: boat_up_0
+  - first:
+      213: 1351238075340758138
+    second: boat_up_1
+  - first:
+      213: 4974204107502552876
+    second: boat_wrecked_0
+  - first:
+      213: 727105422418057765
+    second: boat_wrecked_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,11 +133,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boat_0
+      name: boat_right_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -139,11 +154,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boat_1
+      name: boat_right_1
       rect:
         serializedVersion: 2
         x: 32
-        y: 96
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -160,11 +175,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boat_2
+      name: boat_left_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 0
+        y: 192
         width: 32
         height: 32
       alignment: 0
@@ -181,11 +196,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boat_3
+      name: boat_left_1
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
+        x: 32
+        y: 192
         width: 32
         height: 32
       alignment: 0
@@ -202,11 +217,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boat_4
+      name: boat_down_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -218,6 +233,111 @@ TextureImporter:
       bones: []
       spriteID: ceb47b2d2ec27ffe0800000000000000
       internalID: -1155405426687783956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat_down_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c217a09821c18d30800000000000000
+      internalID: 4432035888278999749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat_up_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c5a2b0b9e5d160d0800000000000000
+      internalID: -3431226241411013181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat_up_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7c1bafcedf80c210800000000000000
+      internalID: 1351238075340758138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat_wrecked_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c278af3084ce70540800000000000000
+      internalID: 4974204107502552876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boat_wrecked_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52a1d718782371a00800000000000000
+      internalID: 727105422418057765
       vertices: []
       indices: 
       edges: []
