@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 4592958584470452556}
   - component: {fileID: 3075846114559731962}
   - component: {fileID: 5455428116231586515}
+  - component: {fileID: 7802793017692239326}
   m_Layer: 0
   m_Name: Player (Boat Prefab)
   m_TagString: Untagged
@@ -128,6 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a5c4851ccc55354290bcfc190bae47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDeadSprites:
+  - {fileID: 4974204107502552876, guid: 46e2af43c4563954f835a7cf42760a6e, type: 3}
+  - {fileID: 727105422418057765, guid: 46e2af43c4563954f835a7cf42760a6e, type: 3}
   moveTime: 0.5
   sr: {fileID: 5763450269169581226}
   framerate: 0.5
@@ -191,3 +195,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7802793017692239326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8904439154061978729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc056ff47c98f94a9e3bf0aef58a4d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 0e7062f56d5b47d4ba5922e8ab5a092e, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4592958584470452556}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: PlayerDied
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

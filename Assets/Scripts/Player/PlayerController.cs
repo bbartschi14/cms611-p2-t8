@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     private float timer;
     private int currentFrame = 0;
     private bool moving = false;
+    private bool dead = false;
+    private int tweenID;
+
+    public Sprite[] playerDeadSprites;
     public float moveTime = .5f;
     public SpriteRenderer sr;
     public float framerate = .5f;
@@ -31,11 +35,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!moving)
+        if (!moving && !dead)
         {
             CheckMovement();
         }
         HandleAnimation();
+    }
+
+    public void PlayerDied()
+    {
+        dead = true;
+        LeanTween.cancel(tweenID);
+        sr.sprite = playerDeadSprites[0];
     }
 
     private void HandleAnimation()
@@ -46,7 +57,15 @@ public class PlayerController : MonoBehaviour
         {
             timer -= framerate;
             currentFrame = currentFrame == 1 ? 0 : 1;
-            sr.sprite = animationSprites[(int) direction].sprites[currentFrame];
+            if (dead)
+            {
+                sr.sprite = playerDeadSprites[currentFrame];
+            }
+            else
+            {
+                sr.sprite = animationSprites[(int) direction].sprites[currentFrame];
+            }
+            
         }
     }
 
@@ -54,13 +73,13 @@ public class PlayerController : MonoBehaviour
     {
         float dist = grid.GetCellSize();
         bool hasMoved = false;
+        Vector3 offset = Vector3.zero;
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (playerPos.y < grid.GetHeight() - 1)
             {
                 playerPos.y += 1;
-                LeanTween.moveLocal(gameObject, transform.position + new Vector3(0f, dist, 0f), moveTime)
-                    .setOnComplete(() => moving = false);
+                offset = new Vector3(0f, dist, 0f);
                 direction = BoatDir.Up;
                 hasMoved = true;
             }
@@ -69,8 +88,7 @@ public class PlayerController : MonoBehaviour
             if (playerPos.x > 0)
             {
                 playerPos.x -= 1;
-                LeanTween.moveLocal(gameObject, transform.position + new Vector3(-dist, 0f, 0f), moveTime)
-                    .setOnComplete(() => moving = false);
+                offset = new Vector3(-dist, 0f, 0f);
                 direction = BoatDir.Left;
                 hasMoved = true;
             }
@@ -79,8 +97,7 @@ public class PlayerController : MonoBehaviour
             if (playerPos.y > 0)
             {
                 playerPos.y -= 1;
-                LeanTween.moveLocal(gameObject, transform.position + new Vector3(0f, -dist, 0f), moveTime)
-                    .setOnComplete(() => moving = false);
+                offset = new Vector3(0f, -dist, 0f);
                 direction = BoatDir.Down;
                 hasMoved = true;
             }
@@ -89,8 +106,7 @@ public class PlayerController : MonoBehaviour
             if (playerPos.x < grid.GetWidth() - 1)
             {
                 playerPos.x += 1;
-                LeanTween.moveLocal(gameObject, transform.position + new Vector3(dist, 0f, 0f), moveTime)
-                    .setOnComplete(() => moving = false);
+                offset = new Vector3(dist, 0f, 0f);
                 direction = BoatDir.Right;
                 hasMoved = true;
             }
@@ -98,6 +114,8 @@ public class PlayerController : MonoBehaviour
 
         if (hasMoved)
         {
+            tweenID = LeanTween.moveLocal(gameObject, transform.position + offset, moveTime)
+                .setOnComplete(() => moving = false).id;
             moving = true;
             sr.sprite = animationSprites[(int) direction].sprites[currentFrame];
             fogmap.DeactivateSquare(playerPos);

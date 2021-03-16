@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goal : MonoBehaviour
+public class Heart : MonoBehaviour
 {
-    public GameEvent onTreasureCollect;
+    public GameEvent onHeartCollect;
     public SpriteRenderer sr;
     private float timer;
     private float framerate = .5f;
     public Sprite[] animations;
     private int currentFrame;
-
-    private bool collected = false;
+    private bool activated = false;
     private void OnTriggerEnter2D(Collider2D other)
     {
         Collect();
@@ -31,11 +30,12 @@ public class Goal : MonoBehaviour
 
     private void Collect()
     {
-        if (!collected)
+        if (!activated)
         {
-            onTreasureCollect.Raise();
-            collected = true;
+            onHeartCollect.Raise();
+            LeanTween.value(gameObject, color => sr.color = color, sr.color, 
+                new Color(1f, 1f, 1f, .5f), .5f).setDelay(.5f);
+            activated = true;
         }
-        
     }
 }

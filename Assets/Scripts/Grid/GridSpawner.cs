@@ -17,7 +17,10 @@ public class GridSpawner : MonoBehaviour
     public Transform itemContainer;
 
     public GameObject minePrefab;
+    public GameObject tentaclePrefab;
+    public Sprite[] tentacleSprites;
     public List<Vector2Int> mines;
+
     // private List<Transform> mineTransforms = new List<Transform>();
     public GameObject heartPrefab;
     public List<Vector2Int> hearts;
@@ -28,6 +31,7 @@ public class GridSpawner : MonoBehaviour
     
     public bool autoUpdate;
     private Grid grid;
+    private int[,] adjacencyMatrix;
     void Start()
     {
         GenerateGrid();
@@ -38,6 +42,11 @@ public class GridSpawner : MonoBehaviour
         player.GetComponent<PlayerController>().SetGridAndPlayer(grid, playerStartPos, fogmap);
 
         InstantiateGoals();
+        InstantiateMines();
+        InstantiateHearts();
+
+        FillAdjacency();
+        SpawnAllTentacles();
     }
 
     public void GenerateGrid()
@@ -48,6 +57,75 @@ public class GridSpawner : MonoBehaviour
         // SpawnItems();
     }
 
+    public Grid GetGrid()
+    {
+        return grid;
+    }
+
+    private void SpawnAllTentacles()
+    {
+        for (int x = 0; x < grid.GetWidth(); x++)
+        {
+            for (int y = 0; y < grid.GetHeight(); y++)
+            {
+                SpawnGridTentacles(x, y, adjacencyMatrix[x,y]);
+            }
+        }
+    }
+
+    private void SpawnGridTentacles(int x, int y, int num)
+    {
+        int[] positions = new int[] {0, 1, 2, 3, 4, 5, 6, 7};
+        
+        for (int t = 0; t < positions.Length; t++ )
+        {
+            int tmp = positions[t];
+            int r = UnityEngine.Random.Range(t, positions.Length);
+            positions[t] = positions[r];
+            positions[r] = tmp;
+        }
+        for (int i = 0; i < num; i++)
+        {
+            Vector3 pos = grid.GetWorldPosition(x, y);
+            pos.z = itemContainer.position.z;
+            GameObject tentacle = Instantiate(tentaclePrefab, pos, Quaternion.identity, itemContainer);
+            tentacle.GetComponentInChildren<SpriteRenderer>().sprite = tentacleSprites[positions[i]];
+        }
+    }
+    
+    
+
+    private void FillAdjacency()
+    {
+        adjacencyMatrix = new int[grid.GetWidth(), grid.GetHeight()];
+        for (int x = 0; x < grid.GetWidth(); x++)
+        {
+            for (int y = 0; y < grid.GetHeight(); y++)
+            {
+                int value = 0;
+                foreach (Vector2Int mine in mines)
+                {
+                    value += IsAdjacent(x, y, mine.x, mine.y) ? 1 : 0;
+                }
+                //Debug.Log("X, Y: " + x + ", " + y + " is " + value);
+                adjacencyMatrix[x, y] = value;
+            }
+        }
+    }
+
+    private bool IsAdjacent(int x1, int y1, int x2, int y2)
+    {
+        if (x2 >= x1 - 1 && x2 <= x1 + 1)
+        {
+            if (y2 >= y1 - 1 && y2 <= y1 + 1)
+            {
+                if (!(x1 == x2 && y1 == y2)) return true;
+            }
+        }
+
+        return false;
+    }
+
     private void InstantiateGoals()
     {
         foreach (Vector2Int goal in goals)
@@ -55,6 +133,26 @@ public class GridSpawner : MonoBehaviour
             Vector3 pos = grid.GetWorldPosition(goal.x, goal.y);
             pos.z = itemContainer.position.z;
             Instantiate(goalPrefab, pos, Quaternion.identity, itemContainer);
+        }
+    }
+    
+    private void InstantiateMines()
+    {
+        foreach (Vector2Int mine in mines)
+        {
+            Vector3 pos = grid.GetWorldPosition(mine.x, mine.y);
+            pos.z = itemContainer.position.z;
+            Instantiate(minePrefab, pos, Quaternion.identity, itemContainer);
+        }
+    }
+    
+    private void InstantiateHearts()
+    {
+        foreach (Vector2Int heart in hearts)
+        {
+            Vector3 pos = grid.GetWorldPosition(heart.x, heart.y);
+            pos.z = itemContainer.position.z;
+            Instantiate(heartPrefab, pos, Quaternion.identity, itemContainer);
         }
     }
     private void OnValidate()
