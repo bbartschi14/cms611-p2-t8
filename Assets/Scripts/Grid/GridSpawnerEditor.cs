@@ -21,9 +21,9 @@ public class GridSpawnerEditor : Editor
             gridSpawner.GenerateGrid();
         }
         
-        if (GUILayout.Button("Erase Items")) {
-            gridSpawner.EraseItems();
-        }
+        // if (GUILayout.Button("Erase Items")) {
+        //     gridSpawner.EraseItems();
+        // }
 
     }
 }
