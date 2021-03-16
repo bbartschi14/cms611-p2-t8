@@ -14,6 +14,18 @@ TextureImporter:
   - first:
       213: -5548975891121717205
     second: life_float_1
+  - first:
+      213: 3897402307749968432
+    second: life_rise_0
+  - first:
+      213: 4960322428541081290
+    second: life_rise_2
+  - first:
+      213: -3185339761586628659
+    second: life_rise_1
+  - first:
+      213: -1500730982269154876
+    second: life_rise_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -194,6 +206,90 @@ TextureImporter:
       bones: []
       spriteID: b20cb76a3d31ef2b0800000000000000
       internalID: -5548975891121717205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: life_rise_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03a7934efba561630800000000000000
+      internalID: 3897402307749968432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: life_rise_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac61894c7fa96d440800000000000000
+      internalID: 4960322428541081290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: life_rise_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc793bd0d566bc3d0800000000000000
+      internalID: -3185339761586628659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: life_rise_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c98c627f155c2be0800000000000000
+      internalID: -1500730982269154876
       vertices: []
       indices: 
       edges: []

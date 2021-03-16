@@ -14,6 +14,18 @@ TextureImporter:
   - first:
       213: 8052302358672570824
     second: treasure_float_1
+  - first:
+      213: 2158054664257976487
+    second: treasure_rise_0
+  - first:
+      213: -5470845585847825699
+    second: treasure_rise_1
+  - first:
+      213: 2429189007567579017
+    second: treasure_rise_2
+  - first:
+      213: -6821935562195577405
+    second: treasure_rise_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -194,6 +206,90 @@ TextureImporter:
       bones: []
       spriteID: 8c9f7b015568fbf60800000000000000
       internalID: 8052302358672570824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: treasure_rise_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a8b8f48843f2fd10800000000000000
+      internalID: 2158054664257976487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: treasure_rise_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddac68aece6a314b0800000000000000
+      internalID: -5470845585847825699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: treasure_rise_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9876950388636b120800000000000000
+      internalID: 2429189007567579017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: treasure_rise_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c55ab610cd9351a0800000000000000
+      internalID: -6821935562195577405
       vertices: []
       indices: 
       edges: []
