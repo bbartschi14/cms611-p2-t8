@@ -12,6 +12,9 @@ public class Heart : MonoBehaviour
     public Sprite[] animations;
     private int currentFrame;
     private bool activated = false;
+    
+    public List<Sprite> collectSprites = new List<Sprite>();
+    public float collectTime = 1f;
     private void OnTriggerEnter2D(Collider2D other)
     {
         Collect();
@@ -19,12 +22,21 @@ public class Heart : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        if (timer > 1f)
+        Animate();
+        
+    }
+
+    private void Animate()
+    {
+        if (!activated)
         {
-            timer -= 1f;
-            currentFrame = currentFrame == 1 ? 0 : 1;
-            sr.sprite = animations[currentFrame];
+            timer += Time.deltaTime;
+            if (timer > 1f)
+            {
+                timer -= 1f;
+                currentFrame = currentFrame == 1 ? 0 : 1;
+                sr.sprite = animations[currentFrame];
+            }
         }
     }
 
@@ -32,10 +44,22 @@ public class Heart : MonoBehaviour
     {
         if (!activated)
         {
+            transform.position += new Vector3(0f, 0f, -1f);
+            StartCoroutine(StartAnimation(collectSprites, collectTime));
             onHeartCollect.Raise();
             LeanTween.value(gameObject, color => sr.color = color, sr.color, 
-                new Color(1f, 1f, 1f, .5f), .5f).setDelay(.5f);
+                new Color(1f, 1f, 1f, 0f), collectTime).setDelay(collectTime*.5f);
             activated = true;
         }
+    }
+    
+    IEnumerator StartAnimation(List<Sprite> sprites, float time)
+    {
+        foreach (Sprite frame in sprites)
+        {
+            sr.sprite = frame;
+            yield return new WaitForSeconds(time / sprites.Count);
+        }
+        yield break;
     }
 }

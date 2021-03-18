@@ -42,11 +42,32 @@ public class PlayerController : MonoBehaviour
         HandleAnimation();
     }
 
+    public void TakeDamage()
+    {
+        float shakeAmt = 15f;
+        float shakePeriodTime = 0.2f; 
+        LeanTween.rotateAroundLocal( transform.GetChild(0).gameObject , Vector3.forward, shakeAmt, shakePeriodTime)
+            .setEase( LeanTweenType.easeShake )
+            .setLoopClamp()
+            .setRepeat(3);
+        
+    }
+
     public void PlayerDied()
     {
         dead = true;
         LeanTween.cancel(tweenID);
         sr.sprite = playerDeadSprites[0];
+    }
+
+    public void PausePlayer()
+    {
+        LeanTween.pause(tweenID);
+    }
+    
+    public void ResumePlayer()
+    {
+        LeanTween.resume(tweenID);
     }
 
     private void HandleAnimation()

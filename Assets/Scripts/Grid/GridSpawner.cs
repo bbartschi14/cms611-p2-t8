@@ -32,12 +32,14 @@ public class GridSpawner : MonoBehaviour
     public bool autoUpdate;
     private Grid grid;
     private int[,] adjacencyMatrix;
+
+    private List<GameObject>[,] tentacles;
     void Start()
     {
         GenerateGrid();
         fogmap.GenerateFogmap(grid);
         Vector3 pos = grid.GetWorldPosition(playerStartPos.x, playerStartPos.y);
-        pos.z = -1f;
+        pos.z = -.2f;
         GameObject player = Instantiate(playerPrefab, pos, Quaternion.identity);
         player.GetComponent<PlayerController>().SetGridAndPlayer(grid, playerStartPos, fogmap);
 
@@ -62,12 +64,41 @@ public class GridSpawner : MonoBehaviour
         return grid;
     }
 
+    public void RemoveAdjacentTentacles(Vector2Int pos)
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if (i != 0 || j != 0)
+                {
+                    RemoveTentacleAt(pos.x + i, pos.y + j);
+                }
+            }
+        }
+    }
+
+    private void RemoveTentacleAt(int x, int y)
+    {
+        if (x < 0 || y < 0 || y >= grid.GetHeight() || x >= grid.GetWidth()) return;
+        
+        List<GameObject> currTentacles = tentacles[x, y];
+        int size = currTentacles.Count;
+        if (size > 0)
+        {
+            Destroy(currTentacles[size-1]);
+            currTentacles.RemoveAt(size-1);
+        }
+    }
+
     private void SpawnAllTentacles()
     {
+        tentacles = new List<GameObject>[grid.GetWidth(), grid.GetHeight()];
         for (int x = 0; x < grid.GetWidth(); x++)
         {
             for (int y = 0; y < grid.GetHeight(); y++)
             {
+                tentacles[x, y] = new List<GameObject>();
                 SpawnGridTentacles(x, y, adjacencyMatrix[x,y]);
             }
         }
@@ -89,7 +120,14 @@ public class GridSpawner : MonoBehaviour
             Vector3 pos = grid.GetWorldPosition(x, y);
             pos.z = itemContainer.position.z;
             GameObject tentacle = Instantiate(tentaclePrefab, pos, Quaternion.identity, itemContainer);
-            tentacle.GetComponentInChildren<SpriteRenderer>().sprite = tentacleSprites[positions[i]];
+            SpriteRenderer ts = tentacle.GetComponentInChildren<SpriteRenderer>();
+            ts.sprite = tentacleSprites[positions[i]];
+            if (positions[i] < 3)
+            {
+                ts.sortingOrder = 5;
+            }
+
+            tentacles[x,y].Add(tentacle);
         }
     }
     
@@ -142,7 +180,8 @@ public class GridSpawner : MonoBehaviour
         {
             Vector3 pos = grid.GetWorldPosition(mine.x, mine.y);
             pos.z = itemContainer.position.z;
-            Instantiate(minePrefab, pos, Quaternion.identity, itemContainer);
+            GameObject octo = Instantiate(minePrefab, pos, Quaternion.identity, itemContainer);
+            octo.GetComponent<Mine>().SetPos(mine);
         }
     }
     

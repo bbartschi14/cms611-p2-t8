@@ -50,6 +50,12 @@ MonoBehaviour:
   animations:
   - {fileID: 7665659258503459381, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
   - {fileID: 8052302358672570824, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  collectSprites:
+  - {fileID: 2158054664257976487, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  - {fileID: -5470845585847825699, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  - {fileID: 2429189007567579017, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  - {fileID: -6821935562195577405, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  collectTime: 1
 --- !u!61 &7588534194547769879
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6349360636359246829, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  m_Sprite: {fileID: 3163395358573969893, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,8 +128,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onDamageTaken: {fileID: 11400000, guid: 8f1fc0feeaad67048abc22f8bb2d901e, type: 2}
-  activated: 0
   sr: {fileID: 6506233754205226291}
+  riseSprites:
+  - {fileID: -3482316335579857248, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: -248415419706055424, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 826734031537189730, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 8401536851600582493, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 3180740460076729970, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 2638712922875281437, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  riseTime: 0.6
+  attackSprites:
+  - {fileID: -8838246917678120016, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 7779004071698775437, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 6718567404563424701, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 8395824990023203277, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  attackTime: 0.4
+  numAttacks: 2
+  descendSprites:
+  - {fileID: -5014958022765248117, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: -2466497599744486453, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 8055721891750256500, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: 2473370534550848637, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: -8798550046082055051, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - {fileID: -7594013473885943522, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  descendTime: 0.6
+  pausePlayer: {fileID: 11400000, guid: 11fcd6c3344af7245b35eb66816e4318, type: 2}
+  resumePlayer: {fileID: 11400000, guid: 0eb26ac9b85c5d84e9a060704386c03a, type: 2}
+  onRemoveTentacles: {fileID: 11400000, guid: d928ea834e8e5004c9ab5867282ad9fe, type: 2}
 --- !u!61 &5365519522111253625
 BoxCollider2D:
   m_ObjectHideFlags: 0

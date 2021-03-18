@@ -13,6 +13,8 @@ public class Goal : MonoBehaviour
     private int currentFrame;
 
     private bool collected = false;
+    public List<Sprite> collectSprites = new List<Sprite>();
+    public float collectTime = 1f;
     private void OnTriggerEnter2D(Collider2D other)
     {
         Collect();
@@ -20,12 +22,21 @@ public class Goal : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        if (timer > 1f)
+        Animate();
+        
+    }
+
+    private void Animate()
+    {
+        if (!collected)
         {
-            timer -= 1f;
-            currentFrame = currentFrame == 1 ? 0 : 1;
-            sr.sprite = animations[currentFrame];
+            timer += Time.deltaTime;
+            if (timer > 1f)
+            {
+                timer -= 1f;
+                currentFrame = currentFrame == 1 ? 0 : 1;
+                sr.sprite = animations[currentFrame];
+            }
         }
     }
 
@@ -33,9 +44,22 @@ public class Goal : MonoBehaviour
     {
         if (!collected)
         {
+            transform.position += new Vector3(0f, 0f, -1f);
             onTreasureCollect.Raise();
+            StartCoroutine(StartAnimation(collectSprites, collectTime));
+            LeanTween.value(gameObject, color => sr.color = color, sr.color, 
+                new Color(1f, 1f, 1f, 0f), collectTime).setDelay(collectTime*.5f);
             collected = true;
         }
-        
+    }
+    
+    IEnumerator StartAnimation(List<Sprite> sprites, float time)
+    {
+        foreach (Sprite frame in sprites)
+        {
+            sr.sprite = frame;
+            yield return new WaitForSeconds(time / sprites.Count);
+        }
+        yield break;
     }
 }

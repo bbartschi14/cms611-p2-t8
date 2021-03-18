@@ -50,6 +50,12 @@ MonoBehaviour:
   animations:
   - {fileID: -6974071674910835800, guid: c5c20dcdb9d9aae4b97ce3a0caa6aca9, type: 3}
   - {fileID: -5548975891121717205, guid: c5c20dcdb9d9aae4b97ce3a0caa6aca9, type: 3}
+  collectSprites:
+  - {fileID: 3897402307749968432, guid: c5c20dcdb9d9aae4b97ce3a0caa6aca9, type: 3}
+  - {fileID: -3185339761586628659, guid: c5c20dcdb9d9aae4b97ce3a0caa6aca9, type: 3}
+  - {fileID: 4960322428541081290, guid: c5c20dcdb9d9aae4b97ce3a0caa6aca9, type: 3}
+  - {fileID: -1500730982269154876, guid: c5c20dcdb9d9aae4b97ce3a0caa6aca9, type: 3}
+  collectTime: 1
 --- !u!61 &4880558059124908966
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -74,7 +80,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.7}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!1 &8446032037131424104
 GameObject:
