@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Win32.SafeHandles;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -14,15 +15,15 @@ public class PlayerController : MonoBehaviour
     private bool dead = false;
     private int tweenID;
 
+    public AudioSource waterSFX;
     public Sprite[] playerDeadSprites;
-    public float moveTime = .5f;
+    public float moveTime = 10f;
     public SpriteRenderer sr;
     public float framerate = .5f;
     public List<AnimationFrames> animationSprites;
 
     void Start()
     {
-        
     }
 
     public void SetGridAndPlayer(Grid grid, Vector2Int pos, Fogmap fogmap)
@@ -135,6 +136,7 @@ public class PlayerController : MonoBehaviour
 
         if (hasMoved)
         {
+            waterSFX.Play();
             tweenID = LeanTween.moveLocal(gameObject, transform.position + offset, moveTime)
                 .setOnComplete(() => moving = false).id;
             moving = true;

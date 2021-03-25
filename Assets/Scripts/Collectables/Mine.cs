@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Mine : MonoBehaviour
 {
+    public AudioSource octoSFX;
     public GameEvent onDamageTaken;
     private bool activated = false;
     public SpriteRenderer sr;
@@ -36,10 +37,7 @@ public class Mine : MonoBehaviour
     {
         if (!activated)
         {
-            
             StartCoroutine(AnimateAll());
-            // LeanTween.value(gameObject, color => sr.color = color, sr.color, 
-            //    new Color(1f, 1f, 1f, .5f), .5f).setDelay(.5f);
             activated = true;
         }
         
@@ -49,6 +47,7 @@ public class Mine : MonoBehaviour
     {
         pausePlayer.Raise();
         onRemoveTentacles.Raise(pos);
+        octoSFX.Play();
         yield return StartCoroutine(StartAnimation(riseSprites, riseTime));
         
         onDamageTaken.Raise();
@@ -57,6 +56,7 @@ public class Mine : MonoBehaviour
             yield return StartCoroutine(StartAnimation(attackSprites, attackTime));
         }
         yield return StartCoroutine(StartAnimation(descendSprites, descendTime));
+        sr.color = Color.clear;
         resumePlayer.Raise();
     }
 

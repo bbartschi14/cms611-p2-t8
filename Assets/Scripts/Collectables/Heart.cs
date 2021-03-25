@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Heart : MonoBehaviour
 {
+    public AudioSource heartSFX;
     public GameEvent onHeartCollect;
     public SpriteRenderer sr;
     private float timer;
@@ -15,6 +16,9 @@ public class Heart : MonoBehaviour
     
     public List<Sprite> collectSprites = new List<Sprite>();
     public float collectTime = 1f;
+    
+    public GameEvent pausePlayer;
+    public GameEvent resumePlayer;
     private void OnTriggerEnter2D(Collider2D other)
     {
         Collect();
@@ -44,11 +48,14 @@ public class Heart : MonoBehaviour
     {
         if (!activated)
         {
+            heartSFX.Play();
+            pausePlayer.Raise();
             transform.position += new Vector3(0f, 0f, -1f);
             StartCoroutine(StartAnimation(collectSprites, collectTime));
             onHeartCollect.Raise();
             LeanTween.value(gameObject, color => sr.color = color, sr.color, 
-                new Color(1f, 1f, 1f, 0f), collectTime).setDelay(collectTime*.5f);
+                new Color(1f, 1f, 1f, 0f), collectTime).setDelay(collectTime*.5f)
+                .setOnComplete(() => resumePlayer.Raise());;
             activated = true;
         }
     }

@@ -6,19 +6,22 @@ using UnityEngine.Serialization;
 
 public class GridSpawner : MonoBehaviour
 {
+    
     public Heatmap heatmap;
     public Tilemap tilemap;
     public Fogmap fogmap;
     public Vector2Int gridSize;
     public float cellSize;
     public List<Vector2Int> goals;
+    private int treasuresCollected;
+    private int totalTreasures;
     public GameObject goalPrefab;
-
+    public GameEvent onGameWon;
     public Transform itemContainer;
 
     public GameObject minePrefab;
     public GameObject tentaclePrefab;
-    public Sprite[] tentacleSprites;
+    
     public List<Vector2Int> mines;
 
     // private List<Transform> mineTransforms = new List<Transform>();
@@ -49,6 +52,7 @@ public class GridSpawner : MonoBehaviour
 
         FillAdjacency();
         SpawnAllTentacles();
+        totalTreasures = goals.Count;
     }
 
     public void GenerateGrid()
@@ -57,6 +61,21 @@ public class GridSpawner : MonoBehaviour
         heatmap.GenerateHeatmap(grid);
         tilemap.GenerateTilemap(grid);
         // SpawnItems();
+    }
+
+    public void TreasureCollect()
+    {
+        treasuresCollected++;
+        Debug.Log(treasuresCollected);
+        if (treasuresCollected == totalTreasures)
+        {
+            onGameWon.Raise();
+        }
+    }
+    public void DeleteGoal(Vector2Int goal)
+    {
+        goals.Remove(goal);
+        heatmap.GenerateHeatmap(grid);
     }
 
     public Grid GetGrid()
@@ -86,7 +105,7 @@ public class GridSpawner : MonoBehaviour
         int size = currTentacles.Count;
         if (size > 0)
         {
-            Destroy(currTentacles[size-1]);
+            currTentacles[size - 1].GetComponent<SingleTentacle>().RemoveSelf();
             currTentacles.RemoveAt(size-1);
         }
     }
@@ -120,13 +139,8 @@ public class GridSpawner : MonoBehaviour
             Vector3 pos = grid.GetWorldPosition(x, y);
             pos.z = itemContainer.position.z;
             GameObject tentacle = Instantiate(tentaclePrefab, pos, Quaternion.identity, itemContainer);
-            SpriteRenderer ts = tentacle.GetComponentInChildren<SpriteRenderer>();
-            ts.sprite = tentacleSprites[positions[i]];
-            if (positions[i] < 3)
-            {
-                ts.sortingOrder = 5;
-            }
-
+            SingleTentacle ts = tentacle.GetComponent<SingleTentacle>();
+            ts.SetID(positions[i]);
             tentacles[x,y].Add(tentacle);
         }
     }
@@ -170,7 +184,8 @@ public class GridSpawner : MonoBehaviour
         {
             Vector3 pos = grid.GetWorldPosition(goal.x, goal.y);
             pos.z = itemContainer.position.z;
-            Instantiate(goalPrefab, pos, Quaternion.identity, itemContainer);
+            GameObject g = Instantiate(goalPrefab, pos, Quaternion.identity, itemContainer);
+            g.GetComponent<Goal>().SetPosition(goal);
         }
     }
     

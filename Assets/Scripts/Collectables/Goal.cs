@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
+    public AudioSource treasureSFX;
     public GameEvent onTreasureCollect;
     public SpriteRenderer sr;
     private float timer;
@@ -13,8 +14,19 @@ public class Goal : MonoBehaviour
     private int currentFrame;
 
     private bool collected = false;
+    private Vector2Int pos;
     public List<Sprite> collectSprites = new List<Sprite>();
     public float collectTime = 1f;
+    
+    public GameEvent pausePlayer;
+    public GameEvent resumePlayer;
+
+    public Vector2IntGameEvent onRemoveGoal;
+
+    public void SetPosition(Vector2Int position)
+    {
+        pos = position;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         Collect();
@@ -44,17 +56,22 @@ public class Goal : MonoBehaviour
     {
         if (!collected)
         {
+            treasureSFX.Play();
+            pausePlayer.Raise();
             transform.position += new Vector3(0f, 0f, -1f);
             onTreasureCollect.Raise();
             StartCoroutine(StartAnimation(collectSprites, collectTime));
-            LeanTween.value(gameObject, color => sr.color = color, sr.color, 
-                new Color(1f, 1f, 1f, 0f), collectTime).setDelay(collectTime*.5f);
+            onRemoveGoal.Raise(pos);
             collected = true;
         }
     }
     
     IEnumerator StartAnimation(List<Sprite> sprites, float time)
     {
+        yield return new WaitForSeconds(.25f);
+        LeanTween.value(gameObject, color => sr.color = color, sr.color, 
+                new Color(1f, 1f, 1f, 0f), collectTime).setDelay(collectTime*.5f)
+            .setOnComplete(() => resumePlayer.Raise());
         foreach (Sprite frame in sprites)
         {
             sr.sprite = frame;

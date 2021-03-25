@@ -91,6 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3210620068756559796}
+  - component: {fileID: 9003861646387350061}
   m_Layer: 0
   m_Name: TentaclePrefab
   m_TagString: Untagged
@@ -113,3 +114,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9003861646387350061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377749787276116184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e71920e5dbcc404b930b6876ae20543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentacleSR: {fileID: 6506233754205226291}
+  tentacleSprites:
+  - sprites:
+    - {fileID: 1795026253520550705, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -4524631911991918040, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -8119261472635236766, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -65553140202119130, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - sprites:
+    - {fileID: -5181877506223443383, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -6883667304780990798, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -4167408708602509085, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 8866030682256459816, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - sprites:
+    - {fileID: -3042169255768814910, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 121361868635088636, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 5780710314530256442, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -6194014694466552161, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - sprites:
+    - {fileID: -5393904256684418717, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 5391241477382850195, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 8134288934159834827, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 424436627875040155, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - sprites:
+    - {fileID: 4710754661084121898, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -8270937987521007292, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -1750059157741345672, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 5868578404229019255, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - sprites:
+    - {fileID: -3758822760625922581, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 3570632374840836997, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 1513020037928307459, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 8591735873892152747, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - sprites:
+    - {fileID: 5993656015828772236, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -6960857599913690276, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 7743613041007698499, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -1219350929611855382, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+  - sprites:
+    - {fileID: -3953433122411276415, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 2455791261691034311, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: -7390936509404682762, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
+    - {fileID: 5407082914422393830, guid: 3d9ff37dc20e7324292acbd273c5b9e9, type: 3}
