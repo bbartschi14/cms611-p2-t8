@@ -26,6 +26,18 @@ TextureImporter:
   - first:
       213: -6821935562195577405
     second: treasure_rise_3
+  - first:
+      213: 3522750175620058541
+    second: treasure_sheen_0
+  - first:
+      213: -5437244906542822321
+    second: treasure_sheen_1
+  - first:
+      213: 5566781413435318950
+    second: treasure_sheen_2
+  - first:
+      213: -8213924653008904286
+    second: treasure_sheen_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -290,6 +302,90 @@ TextureImporter:
       bones: []
       spriteID: 3c55ab610cd9351a0800000000000000
       internalID: -6821935562195577405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: treasure_sheen_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad4742de9253e030800000000000000
+      internalID: 3522750175620058541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: treasure_sheen_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4c86b4b0960b84b0800000000000000
+      internalID: -5437244906542822321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: treasure_sheen_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a22f02933e214d40800000000000000
+      internalID: 5566781413435318950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: treasure_sheen_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af949d1c07420e80800000000000000
+      internalID: -8213924653008904286
       vertices: []
       indices: 
       edges: []
