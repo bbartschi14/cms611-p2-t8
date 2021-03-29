@@ -8,7 +8,7 @@ public class Fog : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IP
     public SpriteRenderer sr;
     public SpriteRenderer marker;
     private bool active = true;
-    private bool markerActive = false;
+    public bool markerActive = false;
     
     public void DeactiveSelf()
     {

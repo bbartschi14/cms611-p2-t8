@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = System.Random;
 
 public class GridSpawner : MonoBehaviour
 {
@@ -37,27 +38,177 @@ public class GridSpawner : MonoBehaviour
     private int[,] adjacencyMatrix;
 
     private List<GameObject>[,] tentacles;
+
+    public bool randomMap;
+    public int numGoals;
+    public int numOcto;
+    public int numLife;
+    private List<Vector2Int> generatedGoals;
+    private List<Vector2Int> generatedMines;
+    private List<Vector2Int> generatedHearts;
+    private Vector2Int generatedPlayerPos;
     void Start()
     {
+        if (randomMap)
+        {
+            GenerateRandom();
+            RandomizeMap();
+        }
+        else
+        {
+            GenerateGrid();
+            fogmap.GenerateFogmap(grid);
+            Vector3 pos = grid.GetWorldPosition(playerStartPos.x, playerStartPos.y);
+            pos.z = -.2f;
+            GameObject player = Instantiate(playerPrefab, pos, Quaternion.identity);
+            player.GetComponent<PlayerController>().SetGridAndPlayer(grid, playerStartPos, fogmap);
+
+            InstantiateGoals(goals);
+            InstantiateMines(mines);
+            InstantiateHearts(hearts);
+
+            FillAdjacency(mines);
+            SpawnAllTentacles();
+            totalTreasures = goals.Count;
+        }
+        
+    }
+
+    public List<Vector2Int> GetGenGoals()
+    {
+        return generatedGoals;
+    }
+    
+    public List<Vector2Int> GetGenMines()
+    {
+        return generatedMines;
+    }
+    public List<Vector2Int> GetGenHearts()
+    {
+        return generatedHearts;
+    }
+    public Vector2Int GetGenPos()
+    {
+        return generatedPlayerPos;
+    }
+
+    public void GenerateRandom()
+    {
+        generatedGoals = new List<Vector2Int>();
+        generatedMines = new List<Vector2Int>();
+        generatedHearts = new List<Vector2Int>();
+        generatedPlayerPos = new Vector2Int();
+
+        List<Vector2Int> possiblePositions = new List<Vector2Int>();
+        for (int i = 0; i < gridSize.x; i++)
+        {
+            for (int j = 0; j < gridSize.y; j++)
+            {
+                possiblePositions.Add(new Vector2Int(i,j));
+            }
+        }
+
+        for (int i = 0; i < numGoals; i++)
+        {
+            int r;
+            int count = 0;
+            do
+            {
+                r = UnityEngine.Random.Range(0, possiblePositions.Count);
+                count++;
+                //Debug.Log(count);
+            } while (!NoGoalsAdjacent(possiblePositions[r]) && count < 10);
+            generatedGoals.Add(possiblePositions[r]);
+            possiblePositions.RemoveAt(r);
+        }
+        
+        for (int i = 0; i < numOcto; i++)
+        {
+            int r;
+            int count = 0;
+            do
+            {
+                r = UnityEngine.Random.Range(0, possiblePositions.Count);
+                count++;
+                //Debug.Log(count);
+            } while (!NoMinesAdjacent(possiblePositions[r]) && count < 10);
+            
+            generatedMines.Add(possiblePositions[r]);
+            possiblePositions.RemoveAt(r);
+        }
+        
+        for (int i = 0; i < numLife; i++)
+        {
+            int r = UnityEngine.Random.Range(0, possiblePositions.Count);
+            generatedHearts.Add(possiblePositions[r]);
+            possiblePositions.RemoveAt(r);
+        }
+
+        generatedPlayerPos = possiblePositions[UnityEngine.Random.Range(0, possiblePositions.Count)];
+        
         GenerateGrid();
+        
+    }
+
+    private bool NoMinesAdjacent(Vector2Int pos)
+    {
+        foreach (Vector2Int mine in generatedMines)
+        {
+            if (IsAdjacent(pos.x, pos.y, mine.x, mine.y))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool NoGoalsAdjacent(Vector2Int pos)
+    {
+        int rad = 3;
+        foreach (Vector2Int goal in generatedGoals)
+        {
+            if (pos.x > goal.x - 3 && pos.x < goal.x + 3)
+            {
+                if (pos.y > goal.y - 3 && pos.y < goal.y + 3)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
+    private void RandomizeMap()
+    {
         fogmap.GenerateFogmap(grid);
-        Vector3 pos = grid.GetWorldPosition(playerStartPos.x, playerStartPos.y);
+        Vector3 pos = grid.GetWorldPosition(generatedPlayerPos.x, generatedPlayerPos.y);
         pos.z = -.2f;
         GameObject player = Instantiate(playerPrefab, pos, Quaternion.identity);
-        player.GetComponent<PlayerController>().SetGridAndPlayer(grid, playerStartPos, fogmap);
+        player.GetComponent<PlayerController>().SetGridAndPlayer(grid, generatedPlayerPos, fogmap);
 
-        InstantiateGoals();
-        InstantiateMines();
-        InstantiateHearts();
+        InstantiateGoals(generatedGoals);
+        InstantiateMines(generatedMines);
+        InstantiateHearts(generatedHearts);
 
-        FillAdjacency();
+        FillAdjacency(generatedMines);
         SpawnAllTentacles();
-        totalTreasures = goals.Count;
+        totalTreasures = generatedGoals.Count;
     }
 
     public void GenerateGrid()
     {
-        grid = new Grid(gridSize.x, gridSize.y, cellSize, goals);
+        if (randomMap)
+        {
+            grid = new Grid(gridSize.x, gridSize.y, cellSize, generatedGoals);
+        }
+        else
+        {
+            grid = new Grid(gridSize.x, gridSize.y, cellSize, goals);
+        }
+        
         heatmap.GenerateHeatmap(grid);
         tilemap.GenerateTilemap(grid);
         // SpawnItems();
@@ -74,7 +225,15 @@ public class GridSpawner : MonoBehaviour
     }
     public void DeleteGoal(Vector2Int goal)
     {
-        goals.Remove(goal);
+        if (randomMap)
+        {
+            generatedGoals.Remove(goal);
+        }
+        else
+        {
+            goals.Remove(goal);
+        }
+        
         heatmap.GenerateHeatmap(grid);
     }
 
@@ -147,7 +306,7 @@ public class GridSpawner : MonoBehaviour
     
     
 
-    private void FillAdjacency()
+    private void FillAdjacency(List<Vector2Int> minesList)
     {
         adjacencyMatrix = new int[grid.GetWidth(), grid.GetHeight()];
         for (int x = 0; x < grid.GetWidth(); x++)
@@ -155,7 +314,7 @@ public class GridSpawner : MonoBehaviour
             for (int y = 0; y < grid.GetHeight(); y++)
             {
                 int value = 0;
-                foreach (Vector2Int mine in mines)
+                foreach (Vector2Int mine in minesList)
                 {
                     value += IsAdjacent(x, y, mine.x, mine.y) ? 1 : 0;
                 }
@@ -178,9 +337,9 @@ public class GridSpawner : MonoBehaviour
         return false;
     }
 
-    private void InstantiateGoals()
+    private void InstantiateGoals(List<Vector2Int> goalsList)
     {
-        foreach (Vector2Int goal in goals)
+        foreach (Vector2Int goal in goalsList)
         {
             Vector3 pos = grid.GetWorldPosition(goal.x, goal.y);
             pos.z = itemContainer.position.z;
@@ -189,9 +348,9 @@ public class GridSpawner : MonoBehaviour
         }
     }
     
-    private void InstantiateMines()
+    private void InstantiateMines(List<Vector2Int> minesList)
     {
-        foreach (Vector2Int mine in mines)
+        foreach (Vector2Int mine in minesList)
         {
             Vector3 pos = grid.GetWorldPosition(mine.x, mine.y);
             pos.z = itemContainer.position.z;
@@ -200,9 +359,9 @@ public class GridSpawner : MonoBehaviour
         }
     }
     
-    private void InstantiateHearts()
+    private void InstantiateHearts(List<Vector2Int> heartsList)
     {
-        foreach (Vector2Int heart in hearts)
+        foreach (Vector2Int heart in heartsList)
         {
             Vector3 pos = grid.GetWorldPosition(heart.x, heart.y);
             pos.z = itemContainer.position.z;
@@ -229,58 +388,4 @@ public class GridSpawner : MonoBehaviour
         }
     }
 
-    // private void SpawnItems()
-    // {
-    //     for (int i = mineTransforms.Count; i > 0; i--)
-    //     {
-    //         mineTransforms[i-1].parent = null;
-    //         DestroyImmediate(mineTransforms[i-1].gameObject);
-    //         mineTransforms.RemoveAt(i-1);
-    //     }
-    //
-    //     for (int i = heartTransforms.Count; i > 0; i--)
-    //     {
-    //         heartTransforms[i-1].parent = null;
-    //         DestroyImmediate(heartTransforms[i-1].gameObject);
-    //         heartTransforms.RemoveAt(i-1);
-    //     }
-    //
-    //     foreach (Vector2Int loc in mines)
-    //     {
-    //         Vector3 pos = grid.GetWorldPosition(loc.x, loc.y);
-    //         pos.z = itemContainer.position.z;
-    //         mineTransforms.Add(Instantiate(minePrefab, pos, Quaternion.identity,
-    //             itemContainer).transform);
-    //     }
-    //     
-    //     foreach (Vector2Int loc in hearts)
-    //     {
-    //         Vector3 pos = grid.GetWorldPosition(loc.x, loc.y);
-    //         pos.z = itemContainer.position.z;
-    //         heartTransforms.Add(Instantiate(heartPrefab, pos, Quaternion.identity,
-    //             itemContainer).transform);
-    //     }
-    // }
-    //
-    // public void EraseItems()
-    // {
-    //     for (int i = mineTransforms.Count; i > 0; i--)
-    //     {
-    //         mineTransforms[i-1].parent = null;
-    //         DestroyImmediate(mineTransforms[i-1].gameObject);
-    //         mineTransforms.RemoveAt(i-1);
-    //     }
-    //
-    //     for (int i = heartTransforms.Count; i > 0; i--)
-    //     {
-    //         heartTransforms[i-1].parent = null;
-    //         DestroyImmediate(heartTransforms[i-1].gameObject);
-    //         heartTransforms.RemoveAt(i-1);
-    //     }
-    //     
-    //     mines.Clear();
-    //     hearts.Clear();
-    // }
-
-    
 }

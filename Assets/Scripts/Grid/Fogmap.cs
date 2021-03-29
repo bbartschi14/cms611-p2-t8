@@ -24,6 +24,16 @@ public class Fogmap : MonoBehaviour
         }
     }
 
+    public bool IsMarked(Vector2Int pos)
+    {
+        if (fogGrid[pos.x, pos.y].GetComponent<Fog>().markerActive)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     private void CreateFog()
     {
         for (int x = 0; x < grid.GetWidth(); x++)

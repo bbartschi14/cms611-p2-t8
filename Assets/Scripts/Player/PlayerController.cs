@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Win32.SafeHandles;
@@ -31,7 +32,18 @@ public class PlayerController : MonoBehaviour
         this.grid = grid;
         this.playerPos = pos;
         this.fogmap = fogmap;
-        fogmap.DeactivateSquare(playerPos);
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (Math.Abs(x) + Math.Abs(y) != 2)
+                {
+                    fogmap.DeactivateSquare(new Vector2Int(playerPos.x + x, playerPos.y + y));
+                }
+            }
+        }
+        
+        
     }
 
     void Update()
@@ -98,7 +110,7 @@ public class PlayerController : MonoBehaviour
         Vector3 offset = Vector3.zero;
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (playerPos.y < grid.GetHeight() - 1)
+            if (playerPos.y < grid.GetHeight() - 1 && !fogmap.IsMarked(playerPos + Vector2Int.up))
             {
                 playerPos.y += 1;
                 offset = new Vector3(0f, dist, 0f);
@@ -107,7 +119,7 @@ public class PlayerController : MonoBehaviour
             }
         } else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (playerPos.x > 0)
+            if (playerPos.x > 0 && !fogmap.IsMarked(playerPos + Vector2Int.left))
             {
                 playerPos.x -= 1;
                 offset = new Vector3(-dist, 0f, 0f);
@@ -116,7 +128,7 @@ public class PlayerController : MonoBehaviour
             }
         } else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (playerPos.y > 0)
+            if (playerPos.y > 0 && !fogmap.IsMarked(playerPos + Vector2Int.down))
             {
                 playerPos.y -= 1;
                 offset = new Vector3(0f, -dist, 0f);
@@ -125,7 +137,7 @@ public class PlayerController : MonoBehaviour
             }
         } else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (playerPos.x < grid.GetWidth() - 1)
+            if (playerPos.x < grid.GetWidth() - 1 && !fogmap.IsMarked(playerPos + Vector2Int.right))
             {
                 playerPos.x += 1;
                 offset = new Vector3(dist, 0f, 0f);

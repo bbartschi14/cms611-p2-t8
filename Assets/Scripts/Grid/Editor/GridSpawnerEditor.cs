@@ -31,13 +31,21 @@ public class GridSpawnerEditor : Editor
     private void OnSceneGUI()
     {
         gridSpawner = (GridSpawner)target;
-        gridSpawner.GenerateGrid();
+        if (gridSpawner.randomMap)
+        {
+            gridSpawner.GenerateRandom();
+        }
+        else
+        {
+            gridSpawner.GenerateGrid();
+        }
+        
         grid = gridSpawner.GetGrid();
         
         if (grid != null)
         {
             Handles.color = Color.red;
-            foreach (Vector2Int loc in gridSpawner.mines)
+            foreach (Vector2Int loc in gridSpawner.randomMap ? gridSpawner.GetGenMines() : gridSpawner.mines)
             {
                 Vector3 gridPos = grid.GetWorldPosition(loc.x, loc.y);
                 gridPos.x += grid.GetCellSize() * .5f;
@@ -46,7 +54,7 @@ public class GridSpawnerEditor : Editor
             }
             
             Handles.color = Color.green;
-            foreach (Vector2Int loc in gridSpawner.hearts)
+            foreach (Vector2Int loc in gridSpawner.randomMap ? gridSpawner.GetGenHearts() :gridSpawner.hearts)
             {
                 Vector3 gridPos = grid.GetWorldPosition(loc.x, loc.y);
                 gridPos.x += grid.GetCellSize() * .5f;
@@ -55,7 +63,8 @@ public class GridSpawnerEditor : Editor
             }
             
             Handles.color = Color.blue;
-            Vector3 playerPos = grid.GetWorldPosition(gridSpawner.playerStartPos.x, gridSpawner.playerStartPos.y);
+            Vector2Int pos = gridSpawner.randomMap ? gridSpawner.GetGenPos() : gridSpawner.playerStartPos;
+            Vector3 playerPos = grid.GetWorldPosition(pos.x, pos.y);
             playerPos.x += grid.GetCellSize() * .5f;
             playerPos.y += grid.GetCellSize() * .5f;
             Handles.DrawSolidDisc(playerPos,Vector3.back, grid.GetCellSize()*.25f);

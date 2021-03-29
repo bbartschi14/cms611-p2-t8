@@ -57,6 +57,10 @@ MonoBehaviour:
   - {fileID: -5470845585847825699, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
   - {fileID: 2429189007567579017, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
   - {fileID: -6821935562195577405, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  - {fileID: 3522750175620058541, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  - {fileID: -5437244906542822321, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  - {fileID: 5566781413435318950, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
+  - {fileID: -8213924653008904286, guid: d0020d131f3dd5c42943be1e7fc60dd0, type: 3}
   collectTime: 1
   pausePlayer: {fileID: 11400000, guid: 11fcd6c3344af7245b35eb66816e4318, type: 2}
   resumePlayer: {fileID: 11400000, guid: 0eb26ac9b85c5d84e9a060704386c03a, type: 2}
